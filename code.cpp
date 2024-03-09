@@ -4,12 +4,14 @@
 #include<SoftwareSerial.h>
 
 //_________________________________esp32--->mqtt____________________________________________________
+
 SoftwareSerial mySerial(3,2);
-String Publish = "led/publish"; //Publish Topic
-String Subscribe = "led/subscribe"; //Subscribe Topic
+String Publish = "/publish"; //Publish Topic
+String Subscribe = "/subscribe"; //Subscribe Topic
 int flag_mqtt =0;
 
 //_________________________________CAN_CONFIGURATION______________________________________________
+
 CAN_device_t CAN_cfg;               // CAN Config
 unsigned long previousMillis = 0;   // will store last time a CAN Message was send
 const int interval = 1000;          // interval at which send CAN Messages (milliseconds)
@@ -19,6 +21,7 @@ int flag_can = 0;
 void setup() {
 
   //___________________________________CAN_SETUP_________________________________________  
+  
   Serial.begin(115200);
   Serial.println("Basic Demo - ESP32-Arduino-CAN");
   CAN_cfg.speed = CAN_SPEED_125KBPS;
@@ -29,6 +32,7 @@ void setup() {
   ESP32Can.CANInit();
    
   //____________________________________ESP32->mqtt server _______________________________________
+  
   mySerial.begin(115200);
 
   //AT Commands for setting up the client id and Server
@@ -145,7 +149,7 @@ void loop()
     ESP32Can.CANWriteFrame(&tx_frame);
   }
   //Publish mqtt message
-  String_ a;
+  String  a;
   if(state==0)
   {
 
